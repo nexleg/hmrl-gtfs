@@ -1,0 +1,38 @@
+name: Zip and Release
+
+on:
+  push:
+    tags:
+      - "v*.*.*" # Triggers on version tags like v1.0.0
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Zip repository contents
+        run: |
+          zip -r release.zip . \
+            --exclude "*.git*" \
+            --exclude ".github/*"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Release ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          body: |
+            ## Release ${{ github.ref_name }}
+
+            Automated release created on ${{ github.event.repository.updated_at }}.
+          files: release.zip
+          draft: false
+          prerelease: false
+
