@@ -22,6 +22,7 @@ jobs:
           zip -r release.zip . \
             --exclude "*.git*" \
             --exclude ".github/*"
+            --exclude "README*"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -32,7 +33,7 @@ jobs:
             ## Release ${{ github.ref_name }}
 
             Automated release created on ${{ github.event.repository.updated_at }}.
-          files: release.zip
+          files: hmrl-gtfs-${{ github.ref_name }}.zip
           draft: false
           prerelease: false
 
