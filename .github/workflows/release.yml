@@ -21,7 +21,7 @@ jobs:
         run: |
           zip -r release.zip . \
             --exclude "*.git*" \
-            --exclude ".github/*"
+            --exclude ".github/*" \
             --exclude "README*"
 
       - name: Create GitHub Release
