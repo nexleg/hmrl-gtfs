@@ -19,7 +19,7 @@ jobs:
 
       - name: Zip repository contents
         run: |
-          zip -r release.zip . \
+          zip -r hmrl-gtfs-${{ github.ref_name }}.zip . \
             --exclude "*.git*" \
             --exclude ".github/*" \
             --exclude "README*"
